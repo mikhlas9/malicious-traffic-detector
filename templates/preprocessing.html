@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Preprocessing</title>
+    <style>
+ body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+ h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+
+
+#preprocessing-steps {
+    text-align: center;
+}
+
+#preprocessing-steps p {
+    margin-bottom: 10px;
+    padding: 10px;
+    color: #6b669d; /* White text color */
+<!--    display: inline-block;-->
+}
+
+.btn {
+    display: block;
+    width: 120px;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+        .btn.disabled {
+    background-color: #cccccc; /* Change background color for disabled state */
+    color: #666666; /* Change text color for disabled state */
+    cursor: not-allowed; /* Change cursor to indicate the button is not clickable */
+}
+
+.btn.disabled:hover {
+    background-color: #cccccc; /* Maintain background color on hover for disabled state */
+    color: #666666; /* Maintain text color on hover for disabled state */
+}
+
+    </style>
+    <script>
+        function displaySteps(steps) {
+            var index = 0;
+            var interval = setInterval(function() {
+                if (index < steps.length) {
+                    document.getElementById('preprocessing-steps').innerHTML += '<p>' + steps[index] + '</p>';
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    enableShowResultButton(); // Enable the button after all steps are displayed
+
+                }
+            }, 2000); // 3000 milliseconds = 3 seconds
+        }
+
+          function enableShowResultButton() {
+            var button = document.getElementById('show-result-btn');
+            button.removeAttribute('disabled');
+            button.classList.remove('disabled');
+        }
+    </script>
+</head>
+<body>
+        <div class="container">
+
+
+     <h1>Data Preprocessing</h1>
+    <div id="preprocessing-steps" class="preprocessing-steps"></div>
+    <script>
+        displaySteps({{ preprocessing_steps | tojson }});
+    </script>
+        <a id="show-result-btn" href="{{ url_for('result') }}" class="btn disabled" disabled>Show Result</a>
+        </div>
+</body>
+</html>
+
